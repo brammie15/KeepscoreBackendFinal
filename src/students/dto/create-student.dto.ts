@@ -8,5 +8,5 @@ export class CreateStudentDto {
     lastName: string;
 
     @ApiProperty()
-    classId: number;
+    klasId: number;
 }

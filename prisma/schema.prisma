@@ -16,11 +16,11 @@ model Student {
   lastName  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Class     Class?   @relation(fields: [classId], references: [id])
+  Class     Klas?   @relation(fields: [classId], references: [id])
   classId   Int?
 }
 
-model Class {
+model Klas {
   id        Int       @id @default(autoincrement())
   name      String
   students  Student[]
