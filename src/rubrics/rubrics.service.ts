@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRubricDto } from './dto/create-rubric.dto';
 import { UpdateRubricDto } from './dto/update-rubric.dto';
+import { PrismaModule } from 'src/prisma/prisma.module';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class RubricsService {
+  constructor(private prisma: PrismaService) {}
   create(createRubricDto: CreateRubricDto) {
-    return 'This action adds a new rubric';
   }
 
   findAll() {

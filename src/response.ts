@@ -10,6 +10,14 @@ function StandardResponse(StatusResponse: StatusResponse, data: any) {
     }
 }
 
+function StandardResponseMessageMeta(StatusResponse: StatusResponse, message: any, meta: any) {
+    return {
+        status: StatusResponse,
+        message: message,
+        meta: meta
+    }
+}
+
 function StandardResponseMessage(StatusResponse: StatusResponse, message: any) {
     return {
         status: StatusResponse,
@@ -17,4 +25,4 @@ function StandardResponseMessage(StatusResponse: StatusResponse, message: any) {
     }
 }
 
-export { StatusResponse, StandardResponse, StandardResponseMessage};
+export { StatusResponse, StandardResponse, StandardResponseMessage, StandardResponseMessageMeta};

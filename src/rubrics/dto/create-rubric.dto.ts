@@ -1,1 +1,3 @@
-export class CreateRubricDto {}
+export class CreateRubricDto {
+    name: string;
+}

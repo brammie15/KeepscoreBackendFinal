@@ -8,6 +8,6 @@ import { KlassenModule } from 'src/klassen/klassen.module';
 @Module({
   controllers: [StudentsController],
   providers: [StudentsService],
-  imports: [PrismaModule, KlassenModule],
+  imports: [PrismaModule],
 })
 export class StudentsModule {}

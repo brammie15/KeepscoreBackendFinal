@@ -3,18 +3,26 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { StandardResponse, StandardResponseMessage, StatusResponse } from 'src/response';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { HandlePostError } from 'src/ErrorHandler';
 
 @Injectable()
 export class StudentsService {
   constructor(private prisma : PrismaService) {}
   
   async create(createStudentDto: CreateStudentDto) {
-    const klas = await this.prisma.klas.findUnique({where: {id: createStudentDto.klasId}});
-    if(!klas) {
-      return StandardResponseMessage(StatusResponse.ERROR, "Klas not found");
-    }else{
+    // const klas = await this.prisma.klas.findUnique({where: {id: createStudentDto.klasId}});
+    // if(!klas) {
+    //   return StandardResponseMessage(StatusResponse.ERROR, "Klas not found");
+    // }else{
+    //   const student = await this.prisma.student.create({data: createStudentDto});
+    //   return StandardResponse(StatusResponse.SUCCESS, student); 
+    // }
+    try{
       const student = await this.prisma.student.create({data: createStudentDto});
-      return StandardResponse(StatusResponse.SUCCESS, student); 
+      return StandardResponse(StatusResponse.SUCCESS, student);
+    }catch(e : any){
+      return HandlePostError(e);      
     }
   }
 

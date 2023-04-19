@@ -12,6 +12,7 @@ async function bootstrap() {
     .setTitle('Keepscore')
     .setVersion('0.1')
     .setBasePath('api')
+    .setDescription("A score keeping tool")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

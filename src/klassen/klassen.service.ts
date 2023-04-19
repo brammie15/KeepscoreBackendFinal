@@ -3,17 +3,18 @@ import { CreateKlassenDto } from './dto/create-klassen.dto';
 import { UpdateKlassenDto } from './dto/update-klassen.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { StandardResponse, StandardResponseMessage, StatusResponse } from 'src/response';
+import { HandlePostError } from 'src/ErrorHandler';
 
 @Injectable()
 export class KlassenService {
   constructor(private prisma: PrismaService) {}
 
   async create(createKlassenDto: CreateKlassenDto) {
-    const klas = await this.prisma.klas.create({ data: createKlassenDto });
-    if(!klas) {
-      return StandardResponseMessage(StatusResponse.ERROR, "Klas could not be created");
-    }else{
+    try{
+      const klas = await this.prisma.klas.create({ data: createKlassenDto });
       return StandardResponse(StatusResponse.SUCCESS, klas);
+    }catch(e){
+      return HandlePostError(e);
     }
   }
 
