@@ -3,19 +3,38 @@ import { CreateRubricDto } from './dto/create-rubric.dto';
 import { UpdateRubricDto } from './dto/update-rubric.dto';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { HandlePostError } from 'src/ErrorHandler';
+import { StandardResponse, StatusResponse } from 'src/response';
 
 @Injectable()
 export class RubricsService {
   constructor(private prisma: PrismaService) {}
-  create(createRubricDto: CreateRubricDto) {
+  async create(createRubricDto: CreateRubricDto) {
+    try{
+      const newRubric = await this.prisma.rubric.create({data: createRubricDto});
+      return StandardResponse(StatusResponse.SUCCESS, newRubric);
+    }catch(e){
+      HandlePostError(e);
+    }
   }
 
-  findAll() {
-    return `This action returns all rubrics`;
+  async findAll() {
+    const rubrics = await this.prisma.rubric.findMany();
+    console.log(rubrics)
+    if(!rubrics){
+      return StandardResponse(StatusResponse.ERROR, "Rubrics not found");
+    }else{
+      return StandardResponse(StatusResponse.SUCCESS, rubrics);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} rubric`;
+  async findOne(id: number) {
+    const rubric = await this.prisma.rubric.findUnique({where: {id}});
+    if(!rubric){
+      return StandardResponse(StatusResponse.ERROR, "Rubric not found");
+    }else{
+      return StandardResponse(StatusResponse.SUCCESS, rubric);
+    }
   }
 
   update(id: number, updateRubricDto: UpdateRubricDto) {
