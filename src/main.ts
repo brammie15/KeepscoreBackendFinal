@@ -4,15 +4,21 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
+  app.enableCors();
 
   const config = new DocumentBuilder()
 
     .setTitle('Keepscore')
     .setVersion('0.1')
+    .setBasePath('api')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger', app, document,{
+    swaggerOptions: {
+      "tryItOutEnabled": true,
+  }});
 
   await app.listen(3000);
 }

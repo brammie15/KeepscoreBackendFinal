@@ -14,10 +14,10 @@ model Student {
   id        Int      @id @default(autoincrement())
   firstName String
   lastName  String
+  Klas     Klas?   @relation(fields: [klasId], references: [id])
+  klasId   Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Class     Klas?   @relation(fields: [classId], references: [id])
-  classId   Int?
 }
 
 model Klas {
@@ -26,4 +26,27 @@ model Klas {
   students  Student[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model Rubric {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Criterea {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Indicator {
+  id        Int      @id @default(autoincrement())
+  name      String
+  description String
+  value     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

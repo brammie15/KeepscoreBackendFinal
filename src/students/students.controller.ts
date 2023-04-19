@@ -13,7 +13,6 @@ export class StudentsController {
 
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
-    const klas : Klas = this.prisma.klas.findUnique({ where: { id: createStudentDto.klasId } });
     return this.studentsService.create(createStudentDto);
   }
 
