@@ -2,7 +2,7 @@ import { Criterea } from "@prisma/client";
 
 export class Rubric {
     id: number;
-    name: string;
+    name: string;np
     criterea: Criterea[];
     createdAt: Date;
     updatedAt: Date;
