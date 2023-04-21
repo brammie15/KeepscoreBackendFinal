@@ -24,6 +24,11 @@ export class CritereasController {
     return this.critereasService.findOne(+id);
   }
 
+  @Get("byRubric/:id")
+  findByRubric(@Param('id') id: string) {
+    return this.critereasService.findByRubric(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCritereaDto: UpdateCritereaDto) {
     return this.critereasService.update(+id, updateCritereaDto);
