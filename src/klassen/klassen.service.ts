@@ -20,11 +20,7 @@ export class KlassenService {
 
   async findAll() {
     const klassen = await this.prisma.klas.findMany({include: {students: true}});
-    if(!klassen) {
-      return StandardResponseMessage(StatusResponse.ERROR, "Klassen not found");
-    }else{
-      return StandardResponse(StatusResponse.SUCCESS, klassen);
-    }
+    return StandardResponse(StatusResponse.SUCCESS, klassen); //Could be bug here that retuns a 404 if no klassen exist
   }
 
   async findOne(id: number) {
