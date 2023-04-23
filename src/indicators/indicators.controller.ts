@@ -24,6 +24,12 @@ export class IndicatorsController {
     return this.indicatorsService.findOne(+id);
   }
 
+  @Get('rubrics/:id')
+  findIndicatorByRubricId(@Param('id') id: string) {
+    return this.indicatorsService.findByRubricId(+id);
+  }
+
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIndicatorDto: UpdateIndicatorDto) {
     return this.indicatorsService.update(+id, updateIndicatorDto);

@@ -20,6 +20,19 @@ export class IndicatorsService {
   findAll() {
     return this.prisma.indicator.findMany();
   }
+  
+  async findByRubricId(id: number) {
+    const criterea = await this.prisma.rubric.findMany({where: {id: id}, include: {Criterea: true}});
+    const indicators = [];
+    console.log(criterea)
+
+
+    if(indicators.length == 0){
+      return StandardResponse(StatusResponse.ERROR, "No indicators found");
+    }else{
+      return StandardResponse(StatusResponse.SUCCESS, indicators);
+    }
+  }
 
   async findOne(id: number) {
     const indicator=  await this.prisma.indicator.findUnique({where: {id}});
