@@ -25,7 +25,9 @@ async function bootstrap() {
         "tryItOutEnabled": true,
     }});
   }
-  app.enableCors();
+  app.enableCors({
+    origin: '*',
+  });
   await app.listen(PORT);
 }
 bootstrap();

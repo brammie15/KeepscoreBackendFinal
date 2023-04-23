@@ -14,8 +14,8 @@ export class CritereasService {
     return `This action returns all critereas`;
   }
   findByRubric(id: number) {
-    const rubric = this.prisma.rubric.findUnique({where: {id: id}, include: {Criterea: true}});
-    return rubric;
+    // const rubric = this.prisma.criterea.findUnique({where: {rubricId: id}});
+    // return rubric;
   }
 
   findOne(id: number) {
