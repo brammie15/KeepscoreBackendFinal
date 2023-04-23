@@ -20,11 +20,7 @@ export class RubricsService {
 
   async findAll() {
     const rubrics = await this.prisma.rubric.findMany({include: {Criterea: true}});
-    if(!rubrics){
-      return StandardResponse(StatusResponse.ERROR, "Rubrics not found");
-    }else{
-      return StandardResponse(StatusResponse.SUCCESS, rubrics);
-    }
+    return StandardResponse(StatusResponse.SUCCESS, rubrics);
   }
 
   async findOne(id: number) {

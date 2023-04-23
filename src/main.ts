@@ -2,6 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
+const PORT = 3000;
+const ENABLE_SWAGGER = true;
+
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
@@ -14,13 +18,14 @@ async function bootstrap() {
     .setBasePath('api')
     .setDescription("A score keeping tool")
     .build();
-
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('swagger', app, document,{
-    swaggerOptions: {
-      "tryItOutEnabled": true,
-  }});
-
-  await app.listen(3000);
+  if(ENABLE_SWAGGER){
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('swagger', app, document,{
+      swaggerOptions: {
+        "tryItOutEnabled": true,
+    }});
+  }
+  app.enableCors();
+  await app.listen(PORT);
 }
 bootstrap();
